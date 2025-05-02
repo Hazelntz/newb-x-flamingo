@@ -243,12 +243,17 @@
   #define NL_CHUNK_LOAD_ANIM 100.0
 #endif
 
+#ifdef REALISTIC_CLOUDS
+  #undef NL_CLOUD_TYPE
+  #define NL CLOUD_TYPE 3
+#endif
+
 #ifdef ROUNDED_CLOUDS
   #undef NL_CLOUD_TYPE
   #define NL_CLOUD_TYPE 2
 #endif
 
-#ifdef BOX_CLOUDS
+#ifdef DEFAULT
   #undef NL_CLOUD_TYPE
   #define NL_CLOUD_TYPE 0
 #endif
