@@ -58,7 +58,7 @@ Rounded Clouds
 
 [[subpack]]
 define = "DEFAULT"
-materials = ["Clouds"]
+materials = []
 description = '''
 Default
 '''
