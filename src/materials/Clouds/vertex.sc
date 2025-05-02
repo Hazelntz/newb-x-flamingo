@@ -17,7 +17,7 @@ uniform vec4 FogAndDistanceControl;
 uniform vec4 ViewPositionAndTime;
 
 float fog_fade(vec3 wPos) {
-  return clamp(2.0-length(wPos*vec3(0.005, 0.002, 0.005)), 0.0, 1.0);
+  return clamp(2.0*4.0-length(wPos*vec3(0.0025, 0.002, 0.0025)*0.5), 0.0, 1.0);
 }
 
 void main() {
@@ -61,7 +61,7 @@ void main() {
         #endif
       }
     #else
-      pos.xz = pos.xz - 32.0;
+      pos.xz = pos.xz*6.0 - 32.0*6.0;
       pos.y *= 0.01;
       worldPos.x = pos.x*model[0][0];
       worldPos.z = pos.z*model[2][2];
@@ -94,6 +94,7 @@ void main() {
         v_fogColor = FogColor.rgb;
         v_color1 = vec4(skycol.zenith, rain);
         v_color2 = vec4(skycol.horizonEdge, ViewPositionAndTime.w);
+        
         color = vec4(worldPos, fade);
       #endif 
     #endif

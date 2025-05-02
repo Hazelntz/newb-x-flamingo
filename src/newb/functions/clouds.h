@@ -36,18 +36,18 @@ vec4 renderCloudsSimple(nl_skycolor skycol, vec3 pos, highp float t, float rain)
 }
 
 // rounded clouds
-
+precision highp float;
 // rounded clouds 3D density map
-float cloudDf(vec3 pos, float rain, vec2 boxiness) {
+highp float cloudDf(vec3 pos, float rain, vec2 boxiness) {
   boxiness *= 0.999;
-  vec2 p0 = floor(pos.xz);
-  vec2 u = max((pos.xz-p0-boxiness.x)/(1.0-boxiness.x), 0.0);
+  highp vec2 p0 = floor(pos.xz);
+  highp vec2 u = max((pos.xz-p0-boxiness.x)/(1.0-boxiness.x), 0.0);
   u *= u*(3.0 - 2.0*u);
 
-  vec4 r = vec4(rand(p0), rand(p0+vec2(1.0,0.0)), rand(p0+vec2(1.0,1.0)), rand(p0+vec2(0.0,1.0)));
-  r = smoothstep(0.1001+0.2*rain, 0.1+0.2*rain*rain, r); // rain transition
+  highp vec4 r = vec4(rand(p0), rand(p0+vec2(1.0,0.0)), rand(p0+vec2(1.0,1.0)), rand(p0+vec2(0.0,1.0)));
+  r = smoothstep(0.3+0.2*rain, 0.1+0.2*rain*rain, r); // rain transition
 
-  float n = mix(mix(r.x,r.y,u.x), mix(r.w,r.z,u.x), u.y);
+  highp float n = mix(mix(r.x,r.y,u.x), mix(r.w,r.z,u.x), u.y);
 
   // round y
   n *= 1.0 - 1.5*smoothstep(boxiness.y, 2.0 - boxiness.y, 2.0*abs(pos.y-0.5));
@@ -86,16 +86,17 @@ vec4 renderCloudsRounded(
     d.y = mix(d.y, pos.y, m);
     pos += deltaP;
   }
-  d.x *= smoothstep(0.03, 0.1, d.x);
+  d.x *= smoothstep(0.5, 1.0, d.x);
   d.x /= (stepsf/density) + d.x;
 
   if (vPos.y < 0.0) { // view from top
     d.y = 1.0 - d.y;
   }
-
+  
   vec4 col = vec4(zenithCol + horizonCol, d.x);
-  col.rgb += dot(col.rgb, vec3(0.3,0.4,0.3))*d.y*d.y;
-  col.rgb *= 1.0 - 0.8*rain;
+  col.rgb *= mix(0.3,1.0,d.y);
+  col.rgb += dot(col.rgb,vec3(0.3,0.4,0.3))*d.y*d.y;
+  
   return col;
 }
 

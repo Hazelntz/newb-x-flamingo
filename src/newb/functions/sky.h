@@ -34,7 +34,7 @@ vec3 getSkyFactors(vec3 FOG_COLOR) {
   vec3 factors = vec3(
     max(FOG_COLOR.r*0.6, max(FOG_COLOR.g, FOG_COLOR.b)), // intensity val
     1.5*max(FOG_COLOR.r-FOG_COLOR.b, 0.0), // viewing sun
-    min(FOG_COLOR.g, 0.26) // rain brightness
+    min(FOG_COLOR.g, 0.2) // rain brightness
   );
 
   factors.z *= factors.z;
@@ -57,6 +57,7 @@ vec3 getHorizonCol(float rainFactor, vec3 FOG_COLOR, vec3 fs) {
   horizonCol = mix(horizonCol, 2.0*fs.x*NL_DAY_HORIZON_COL, fs.x*fs.x);
   horizonCol = mix(horizonCol, NL_RAIN_HORIZON_COL*fs.z*19.6, rainFactor);
 
+
   return horizonCol;
 }
 
@@ -70,7 +71,7 @@ vec3 getHorizonEdgeCol(vec3 horizonCol, float rainFactor, vec3 FOG_COLOR) {
 
 // 1D sky with three color gradient
 vec3 renderOverworldSky(nl_skycolor skycol, vec3 viewDir) {
-  float h = 1.0-viewDir.y*viewDir.y;
+  float h = 1.0-(viewDir.y+0.25)*(viewDir.y+0.25);
   float hsq = h*h;
   if (viewDir.y < 0.0) {
     hsq = 0.4 + 0.6*hsq*hsq;
@@ -80,7 +81,7 @@ vec3 renderOverworldSky(nl_skycolor skycol, vec3 viewDir) {
   // gradient 2  h^8 mix h^2
   float gradient1 = hsq*hsq;
   gradient1 *= gradient1;
-  float gradient2 = 0.6*gradient1 + 0.4*hsq;
+  float gradient2 = 0.8*gradient1 + 0.2*hsq;
   gradient1 *= gradient1;
 
   vec3 sky = mix(skycol.horizon, skycol.horizonEdge, gradient1);
@@ -97,9 +98,9 @@ vec3 getSunBloom(float viewDirX, vec3 horizonEdgeCol, vec3 FOG_COLOR) {
 
   float spread = smoothstep(0.0, 1.0, abs(viewDirX));
   float sunBloom = spread*spread;
-  sunBloom = 0.5*spread + sunBloom*sunBloom*sunBloom*1.5;
+  sunBloom = 0.5*spread + sunBloom*sunBloom*sunBloom*1.75;
 
-  return NL_MORNING_SUN_COL*horizonEdgeCol*(sunBloom*factor*factor);
+  return NL_MORNING_SUN_COL*horizonEdgeCol*(sunBloom*factor*factor*2.0);
 }
 
 
