@@ -43,8 +43,8 @@ No wave effects
 '''
 
 [[subpack]]
-define = "REALISTIC_CLOUDS"
-materials = ["Clouds"]
+define = "DEFAULT"
+materials = []
 description = '''
 Realistic Clouds
 '''
@@ -57,8 +57,8 @@ Rounded Clouds
 '''
 
 [[subpack]]
-define = "DEFAULT"
-materials = []
+define = "BOX_CLOUDS"
+materials = ["Clouds"]
 description = '''
 Default
 '''
