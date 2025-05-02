@@ -1,4 +1,4 @@
-name = "Newb X Flamingo V4"
+name = "§l§uNEWB x FLAMINGO §fV4"
 version = [0, 15, 0]
 min_supported_mc_version = [1, 21, 20]
 description = '''
@@ -7,7 +7,7 @@ description = '''
 %v
 §3https://devendrn.github.io/newb-shader/
 ''' # %w = patch warning, %v = version
-authors = ["devendrn"]
+authors = ["devendrn", "Hazelntz"]
 url = "https://devendrn.github.io/newb-shader/"
 uuid = "c6831839-317c-4d85-b58d-25bc7d96746e" # Use https://www.uuidgenerator.net/version4
 materials = ["Sky", "RenderChunk", "Actor", "ActorGlint", "EndSky", "Clouds", "SunMoon", "Weather", "ItemInHandTextured", "ItemInHandColor", "ItemInHandColorGlint", "Stars"]
