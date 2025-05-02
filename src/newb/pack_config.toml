@@ -9,7 +9,7 @@ description = '''
 ''' # %w = patch warning, %v = version
 authors = ["devendrn", "Hazelntz"]
 url = "https://devendrn.github.io/newb-shader/"
-uuid = "c6831839-317c-4d85-b58d-25bc7d96746e" # Use https://www.uuidgenerator.net/version4
+uuid = "5fb643e5-9538-4a7b-9119-722c70d8c7da" # Use https://www.uuidgenerator.net/version4
 materials = ["Sky", "RenderChunk", "Actor", "ActorGlint", "EndSky", "Clouds", "SunMoon", "Weather", "ItemInHandTextured", "ItemInHandColor", "ItemInHandColorGlint", "Stars"]
 
 [info] 
