@@ -73,7 +73,7 @@ void main() {
       #endif
 
       vec3 centerPos = vec3(0.0, 0.0, 0.0);  // Misalnya pusat awan di (0,0,0)
-float fade = fog_fade(worldPos.xyz, centerPos);
+      float fade = fog_fade(worldPos.xyz, centerPos);
       #if NL_CLOUD_TYPE == 1
         // make cloud plane spherical
         float len = length(worldPos.xz)*0.01;
