@@ -16,8 +16,9 @@ uniform vec4 FogColor;
 uniform vec4 FogAndDistanceControl;
 uniform vec4 ViewPositionAndTime;
 
-float fog_fade(vec3 wPos) {
-  return clamp(2.0*4.0-length(wPos*vec3(0.0025, 0.002, 0.0025)*0.5), 0.0, 1.0);
+float fog_fade(vec3 wPos, vec3 centerPos) {
+    float dist = length(wPos - centerPos);  // Jarak dari pusat awan
+    return clamp(1.0 - dist * 0.00085, 0.0, 1.0);  // Penghitungan jarak berbasis pusat awan
 }
 
 void main() {
@@ -71,7 +72,8 @@ void main() {
         worldPos.y = pos.y+model[1][3];
       #endif
 
-      float fade = fog_fade(worldPos.xyz);
+      vec3 centerPos = vec3(0.0, 0.0, 0.0);  // Misalnya pusat awan di (0,0,0)
+float fade = fog_fade(worldPos.xyz, centerPos);
       #if NL_CLOUD_TYPE == 1
         // make cloud plane spherical
         float len = length(worldPos.xz)*0.01;
