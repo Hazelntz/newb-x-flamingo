@@ -42,12 +42,13 @@ void main() {
     #if NL_CLOUD_TYPE == 0
       pos.y *= (NL_CLOUD0_THICKNESS + rain*(NL_CLOUD0_RAIN_THICKNESS - NL_CLOUD0_THICKNESS));
       worldPos = mul(model, vec4(pos, 1.0)).xyz;
+      vec3 centerPos = vec3(0.0, 0.0, 0.0);
 
       color.rgb = skycol.zenith + skycol.horizonEdge;
       color.rgb += dot(color.rgb, vec3(0.3,0.4,0.3))*a_position.y;
       color.rgb *= 1.0 - 0.8*rain;
       color.rgb = colorCorrection(color.rgb);
-      color.a = NL_CLOUD0_OPACITY * fog_fade(worldPos.xyz);
+      color.a = NL_CLOUD0_OPACITY * fog_fade(worldPos.xyz, centerPos);
 
       // clouds.png has two non-overlaping layers:
       // r=unused, g=layers, b=reference, a=unused
@@ -73,7 +74,7 @@ void main() {
       #endif
 
       vec3 centerPos = vec3(0.0, 0.0, 0.0);  // Misalnya pusat awan di (0,0,0)
-      float fade = fog_fade(worldPos.xyz, centerPos);
+float fade = fog_fade(worldPos.xyz, centerPos);
       #if NL_CLOUD_TYPE == 1
         // make cloud plane spherical
         float len = length(worldPos.xz)*0.01;
