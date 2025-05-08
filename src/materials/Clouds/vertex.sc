@@ -18,7 +18,11 @@ uniform vec4 ViewPositionAndTime;
 
 float fog_fade(vec3 wPos, vec3 centerPos) {
     float dist = length(wPos - centerPos);  // Jarak dari pusat awan
-    return clamp(1.0 - dist * 0.00085, 0.0, 1.0);  // Penghitungan jarak berbasis pusat awan
+    return clamp(1.1 - dist * 0.0008, 0.1, 1.0);  // Penghitungan jarak berbasis pusat awan
+}
+
+float vanilla_fade(vec3 wPos) {
+  return clamp(2.0-length(wPos*vec3(0.005, 0.002, 0.005)), 0.0, 1.0);
 }
 
 void main() {
@@ -48,7 +52,7 @@ void main() {
       color.rgb += dot(color.rgb, vec3(0.3,0.4,0.3))*a_position.y;
       color.rgb *= 1.0 - 0.8*rain;
       color.rgb = colorCorrection(color.rgb);
-      color.a = NL_CLOUD0_OPACITY * fog_fade(worldPos.xyz, centerPos);
+      color.a = NL_CLOUD0_OPACITY * vanilla_fade(worldPos.xyz);
 
       // clouds.png has two non-overlaping layers:
       // r=unused, g=layers, b=reference, a=unused
