@@ -18,7 +18,7 @@ uniform vec4 ViewPositionAndTime;
 
 float fog_fade(vec3 wPos, vec3 centerPos) {
     float dist = length(wPos - centerPos);  // Jarak dari pusat awan
-    return clamp(1.1 - dist * 0.0008, 0.1, 1.0);  // Penghitungan jarak berbasis pusat awan
+    return clamp(1.0 - dist * 0.0008, 0.1, 1.0);  // Penghitungan jarak berbasis pusat awan
 }
 
 float vanilla_fade(vec3 wPos) {
